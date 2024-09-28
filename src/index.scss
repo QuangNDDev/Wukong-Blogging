@@ -1,4 +1,21 @@
-*,
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-body text-xs;
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* *,
 *::before,
 *::after {
   box-sizing: border-box;
@@ -41,4 +58,4 @@ h4,
 h5,
 h6 {
   overflow-wrap: break-word;
-}
+} */
