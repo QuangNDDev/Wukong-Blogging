@@ -16,6 +16,9 @@ export default {
       backgroundImage: {
         "linear-gradient": "linear-gradient(to right bottom, #00A7B4, #A4D96C)",
       },
+      backgroundColor: {
+        bgWhite: "#FFF",
+      },
       width: {
         signup: "300px",
         login: "300px",
