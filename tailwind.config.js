@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ["Poppins", ["sans-serif"]],
+        body: ["Montserrat", ["sans-serif"]],
       },
       colors: {
         primary: "#2EBAC1",
