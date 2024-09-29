@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import LoadingSpinner from "../loading";
 import PropTypes from "prop-types";
 
@@ -9,6 +10,7 @@ function Button({
   onClick = () => {},
   disable = false,
   isLoading = false,
+  to,
 }) {
   let kindClass = "";
 
@@ -22,6 +24,9 @@ function Button({
     case "ghost":
       kindClass = "text-primary bg-opacity-10 bg-primary";
       break;
+    case "signup-header":
+      kindClass = "max-w-[200px] ml-[20px] text-white";
+      break;
     default:
       kindClass = "text-white bg-primary";
       break;
@@ -29,6 +34,21 @@ function Button({
 
   const disabledClass = disable ? "opacity-50 cursor-wait" : "cursor-pointer";
 
+  if (to !== "" && typeof to === "string") {
+    return (
+      <Link to={to}>
+        <button
+          className={`cursor-pointer w-signup mx-auto bg-linear-gradient px-6 font-semibold text-[16px] rounded-lg flex justify-center items-center ${kindClass} ${disabledClass}`}
+          style={{ height }}
+          type={type}
+          onClick={onClick}
+          disabled={disable}
+        >
+          {isLoading ? <LoadingSpinner size="25" /> : children}
+        </button>
+      </Link>
+    );
+  }
   return (
     <button
       className={`cursor-pointer w-signup mx-auto bg-linear-gradient px-6 font-semibold text-[16px] rounded-lg flex justify-center items-center ${kindClass} ${disabledClass}`}
@@ -44,7 +64,6 @@ function Button({
 Button.propTypes = {
   type: PropTypes.oneOf(["button", "submit"]).isRequired,
   children: PropTypes.node.isRequired,
-  kind: PropTypes.oneOf(["primary", "secondary", "ghost"]),
   height: PropTypes.string,
   onClick: PropTypes.func,
   disable: PropTypes.bool,

@@ -4,13 +4,17 @@
 
 @layer base {
   body {
-    @apply font-body text-xs;
+    @apply font-body text-base;
   }
 }
 
+* {
+  margin: 0;
+  padding: 0;
+}
 .container {
   width: 100%;
-  max-width: 1000px;
+  max-width: 1180px;
   margin: 0 auto;
   padding: 0 20px;
 }

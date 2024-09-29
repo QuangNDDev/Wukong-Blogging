@@ -7,11 +7,28 @@ import "./index.scss";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SignUpPage from "./pages/sign-up-page/index.jsx";
-import LoginPage from "./pages/login/index";
+import LoginPage from "./pages/sign-in-page/index.jsx";
+import HomePage from "./pages/home/index.jsx";
+import Layout from "./components/layout/index.jsx";
+import NotFoundPage from "./pages/not-found/index.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <Layout />,
+    children: [
+      {
+        path: "/",
+        element: <HomePage />,
+      },
+    ],
+  },
+  {
+    path: "*",
+    element: <NotFoundPage />,
+  },
+  {
+    path: "/sign-in",
     element: <LoginPage />,
   },
   {
