@@ -1,4 +1,5 @@
 import FeaturePostCategory from "../feature-post-category";
+import PostInfo from "../post-info";
 import PostTitle from "../post-title";
 
 const PostNewestLarge = () => {
@@ -15,11 +16,7 @@ const PostNewestLarge = () => {
       <PostTitle size="big" className="mb-[10px]">
         Hướng dẫn setup phòng cực chill dành cho người mới toàn tập
       </PostTitle>
-      <div className="flex items-center gap-3 text-sm font-semibold post-info">
-        <span className="post-time">Mar 23</span>
-        <span className="w-1 h-1 bg-current rounded-full post-dot"></span>
-        <span className="post-author">Andiez Le</span>
-      </div>
+      <PostInfo author="Andiez Le" date="Mar 23" color="secondary" />
     </div>
   );
 };

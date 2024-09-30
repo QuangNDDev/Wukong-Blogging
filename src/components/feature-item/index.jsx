@@ -1,4 +1,5 @@
 import FeaturePostCategory from "../feature-post-category";
+import PostInfo from "../post-info";
 import PostTitle from "../post-title";
 
 function FeatureItem() {
@@ -13,11 +14,7 @@ function FeatureItem() {
       <div className="absolute inset-0 z-10 p-5 text-white">
         <div className="flex items-center justify-between mb-4">
           <FeaturePostCategory>Kiến thức</FeaturePostCategory>
-          <div className="flex items-center ml-auto text-sm font-semibold text-white gap-x-3">
-            <span>Mar 23</span>
-            <span className="inline-block w-1 h-1 bg-current rounded-full"></span>
-            <span>Andiez Le</span>
-          </div>
+          <PostInfo date="Mar 23" author="Andiez Le" />
         </div>
         <PostTitle size="big">
           Hướng dẫn setup phòng cực chill dành cho người mới toàn tập

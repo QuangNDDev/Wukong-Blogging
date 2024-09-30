@@ -1,4 +1,5 @@
 import FeaturePostCategory from "../feature-post-category";
+import PostInfo from "../post-info";
 import PostTitle from "../post-title";
 
 const PostNewestItem = () => {
@@ -18,11 +19,7 @@ const PostNewestItem = () => {
         <PostTitle>
           Hướng dẫn setup phòng cực chill dành cho người mới toàn tập
         </PostTitle>
-        <div className="flex items-center gap-3 text-sm font-semibold text-gray-600">
-          <span className="post-time">Mar 23</span>
-          <span className="inline-block w-1 h-1 bg-current rounded-full"></span>
-          <span className="post-author">Andiez Le</span>
-        </div>
+        <PostInfo author="Andiez Le" date="Mar 23" color="secondary" />
       </div>
     </div>
   );
