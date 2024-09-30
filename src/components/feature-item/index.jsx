@@ -1,3 +1,6 @@
+import FeaturePostCategory from "../feature-post-category";
+import PostTitle from "../post-title";
+
 function FeatureItem() {
   return (
     <div className="relative w-full h-[169px] rounded-2xl lg:h-[272px]">
@@ -9,18 +12,16 @@ function FeatureItem() {
       <div className="absolute inset-0 bg-gradient-to-b from-[#6b6b6b] via-[#a3a3a3] to-transparent opacity-60 rounded-2xl mix-blend-multiply"></div>
       <div className="absolute inset-0 z-10 p-5 text-white">
         <div className="flex items-center justify-between mb-4">
-          <span className="inline-block px-3 py-2 text-sm font-semibold text-gray-600 bg-gray-200 rounded-lg max-w-[100px] overflow-hidden text-ellipsis whitespace-nowrap">
-            Kiến thức
-          </span>
+          <FeaturePostCategory>Kiến thức</FeaturePostCategory>
           <div className="flex items-center ml-auto text-sm font-semibold text-white gap-x-3">
             <span>Mar 23</span>
             <span className="inline-block w-1 h-1 bg-current rounded-full"></span>
             <span>Andiez Le</span>
           </div>
         </div>
-        <h3 className="text-lg font-bold leading-snug lg:text-xl">
+        <PostTitle size="big">
           Hướng dẫn setup phòng cực chill dành cho người mới toàn tập
-        </h3>
+        </PostTitle>
       </div>
     </div>
   );

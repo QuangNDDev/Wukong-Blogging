@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ["Poppins", ["sans-serif"]],
+        body: ["Montserrat", ["sans-serif"]],
       },
       colors: {
         primary: "#2EBAC1",
@@ -12,6 +12,7 @@ export default {
         grayLight: "#E7ECF3",
         placeHolderColor: "#84878b",
         borderColor: "#2196f3",
+        gray23: "#232323",
       },
       backgroundImage: {
         "linear-gradient": "linear-gradient(to right bottom, #00A7B4, #A4D96C)",

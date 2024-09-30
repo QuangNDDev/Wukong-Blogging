@@ -1,3 +1,6 @@
+import FeaturePostCategory from "../feature-post-category";
+import PostTitle from "../post-title";
+
 const PostNewestItem = () => {
   return (
     <div className="flex items-center gap-5 border-b border-gray-300 mb-7 pb-7 last:mb-0 last:pb-0 last:border-b-0">
@@ -9,12 +12,12 @@ const PostNewestItem = () => {
         />
       </div>
       <div className="post-content">
-        <span className="inline-block px-2 py-1 mb-2 text-xs font-semibold text-gray-600 bg-white rounded-lg">
+        <FeaturePostCategory className="mb-2" type="secondary">
           Kiến thức
-        </span>
-        <h3 className="mb-2 text-base font-bold leading-6">
+        </FeaturePostCategory>
+        <PostTitle>
           Hướng dẫn setup phòng cực chill dành cho người mới toàn tập
-        </h3>
+        </PostTitle>
         <div className="flex items-center gap-3 text-sm font-semibold text-gray-600">
           <span className="post-time">Mar 23</span>
           <span className="inline-block w-1 h-1 bg-current rounded-full"></span>

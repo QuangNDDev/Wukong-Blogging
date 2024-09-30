@@ -1,3 +1,6 @@
+import FeaturePostCategory from "../feature-post-category";
+import PostTitle from "../post-title";
+
 const PostNewestLarge = () => {
   return (
     <div className="post-newest-large">
@@ -8,12 +11,10 @@ const PostNewestLarge = () => {
           className="object-cover w-full h-full rounded-lg"
         />
       </div>
-      <div className="post-category inline-block px-3 py-2 mb-4 text-sm font-semibold text-[#6b6b6b] bg-[#f3edff] rounded-lg">
-        Kiến thức
-      </div>
-      <h3 className="mb-3 text-lg font-bold leading-6 post-title">
+      <FeaturePostCategory className="mb-[10px]">Kiến thức</FeaturePostCategory>
+      <PostTitle size="big" className="mb-[10px]">
         Hướng dẫn setup phòng cực chill dành cho người mới toàn tập
-      </h3>
+      </PostTitle>
       <div className="flex items-center gap-3 text-sm font-semibold post-info">
         <span className="post-time">Mar 23</span>
         <span className="w-1 h-1 bg-current rounded-full post-dot"></span>
