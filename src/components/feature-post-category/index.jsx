@@ -8,7 +8,7 @@ function FeaturePostCategory({
 }) {
   return (
     <div
-      className={`inline-block px-[10px] rounde-[10px] py-1 text-sm font-semibold text-gray-600 ${
+      className={`inline-block px-2 py-1 mb-2 text-xs font-semibold text-gray-600 ${
         type === "primary"
           ? "bg-[#F3EDFF]"
           : type === "secondary"

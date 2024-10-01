@@ -1,22 +1,20 @@
+import { yupResolver } from "@hookform/resolvers/yup";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import * as yup from "yup";
+import Button from "../../components/button";
 import Field from "../../components/field";
+import Input from "../../components/input";
+import InputPassword from "../../components/input-toggle-password";
 import Label from "../../components/label";
 import { useAuth } from "../../contexts/auth-context/auth-context";
-import AuthenLayout from "../authen-layout";
-import Button from "../../components/button";
-import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
-import IconEyeOpen from "../../components/icon/icon-eye-open";
-import IconEyeClose from "../../components/icon/icon-eye-close";
-import Input from "../../components/input";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { toast } from "react-toastify";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebase-config";
-import { Link, useNavigate } from "react-router-dom";
+import AuthenLayout from "../authen-layout";
 
 function LoginPage() {
-  const [togglePassword, setTogglePassword] = useState(false);
   const { userInfo } = useAuth();
   const navigate = useNavigate();
 
@@ -73,18 +71,7 @@ function LoginPage() {
         </Field>
         <Field>
           <Label htmlFor="password">Password</Label>
-          <Input
-            name="password"
-            type={togglePassword ? "text" : "password"}
-            placeholder="Enter your password..."
-            control={control}
-          >
-            {togglePassword ? (
-              <IconEyeOpen onClick={() => setTogglePassword(false)} />
-            ) : (
-              <IconEyeClose onClick={() => setTogglePassword(true)} />
-            )}
-          </Input>
+          <InputPassword control={control} />
         </Field>
         <div className="mb-5 text-base">
           You don&#39;t have an account yet?

@@ -1,22 +1,20 @@
-import { useForm } from "react-hook-form";
-import Input from "../../components/input";
-import Label from "../../components/label";
-import IconEyeOpen from "../../components/icon/icon-eye-open";
-import Field from "../../components/field";
-import IconEyeClose from "../../components/icon/icon-eye-close";
-import { useEffect, useState } from "react";
-import Button from "../../components/button";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { toast } from "react-toastify";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth, db } from "../../firebase/firebase-config";
 import { addDoc, collection } from "firebase/firestore";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import * as yup from "yup";
+import Button from "../../components/button";
+import Field from "../../components/field";
+import Input from "../../components/input";
+import InputPassword from "../../components/input-toggle-password";
+import Label from "../../components/label";
+import { auth, db } from "../../firebase/firebase-config";
 import AuthenLayout from "../authen-layout";
 
 function SignUpPage() {
-  const [togglePassword, setTogglePassword] = useState(false);
   const navigate = useNavigate();
 
   const schema = yup.object({
@@ -102,18 +100,7 @@ function SignUpPage() {
         </Field>
         <Field>
           <Label htmlFor="password">Password</Label>
-          <Input
-            name="password"
-            type={togglePassword ? "text" : "password"}
-            placeholder="Enter your password..."
-            control={control}
-          >
-            {togglePassword ? (
-              <IconEyeOpen onClick={() => setTogglePassword(false)} />
-            ) : (
-              <IconEyeClose onClick={() => setTogglePassword(true)} />
-            )}
-          </Input>
+          <InputPassword control={control} />
         </Field>
         <div className="mb-5 text-base">
           Do you have an account?

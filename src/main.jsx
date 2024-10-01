@@ -11,6 +11,10 @@ import LoginPage from "./pages/sign-in-page/index.jsx";
 import HomePage from "./pages/home/index.jsx";
 import Layout from "./components/layout/index.jsx";
 import NotFoundPage from "./pages/not-found/index.jsx";
+import DashboardPage from "./pages/dashboard/index.jsx";
+import LayoutDashboard from "./components/layout-dashboard/index.jsx";
+import PostManage from "./components/post-manage/index.jsx";
+import PostAddNew from "./components/form/addnew-form/index.jsx";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +38,24 @@ const router = createBrowserRouter([
   {
     path: "/sign-up",
     element: <SignUpPage />,
+  },
+  {
+    path: "/dashboard",
+    element: <LayoutDashboard />,
+    children: [
+      {
+        index: true, // Chỉ định trang mặc định của "/dashboard"
+        element: <DashboardPage />,
+      },
+      {
+        path: "manage/post", // Chỉ định trang mặc định của "/dashboard"
+        element: <PostManage />,
+      },
+      {
+        path: "manage/add-post", // Chỉ định trang mặc định của "/dashboard"
+        element: <PostAddNew />,
+      },
+    ],
   },
 ]);
 

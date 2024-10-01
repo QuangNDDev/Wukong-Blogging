@@ -9,7 +9,7 @@ function NotFoundPage() {
       <h1 className="mb-10 text-6xl font-bold heading">Oops! Page not found</h1>
       <Link
         to={"/"}
-        className="back inline-block px-[15px] py-[30px] text-white bg-primary rounded font-semibold text-base
+        className="back inline-block px-[15px] py-4 text-white bg-primary rounded font-semibold text-lg
         "
       >
         Back to home
