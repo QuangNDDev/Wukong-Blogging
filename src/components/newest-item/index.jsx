@@ -22,11 +22,11 @@ const PostNewestItem = () => {
         <FeaturePostCategory type="secondary" to={"/"}>
           Kiến thức
         </FeaturePostCategory>
-        <h3 className="mb-2 text-base font-bold leading-snug">
-          <PostTitle>
-            Hướng dẫn setup phòng cực chill dành cho người mới toàn tập
-          </PostTitle>
-        </h3>
+
+        <PostTitle>
+          Hướng dẫn setup phòng cực chill dành cho người mới toàn tập
+        </PostTitle>
+
         {/* <div className="flex items-center text-sm font-semibold text-gray-600 gap-x-3">
           <span>Mar 23</span>
           <span className="inline-block w-1 h-1 bg-current rounded-full"></span>

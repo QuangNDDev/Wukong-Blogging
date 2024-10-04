@@ -7,34 +7,85 @@ import FieldCheckboxes from "../../field-checkbox";
 import Radio from "../../radio-button";
 import { postStatus } from "../../../utils/constants";
 import Dropdown from "../../dropdown/dropdown";
-// import Option from "../../dropdown/option";
-// import Select from "../../dropdown/select";
-// import List from "../../dropdown/lish";
 import slugify from "slugify";
 import ImageUpload from "../../image-upload";
 import useFirebaseImage from "../../../hooks/useFirebaseImage";
 import Toggle from "../../toggle";
+import { useEffect, useState } from "react";
+import { db } from "./../../../firebase/firebase-config";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import Option from "../../dropdown/option";
+import Select from "../../dropdown/select";
+import List from "../../dropdown/lish";
+import { useAuth } from "../../../contexts/auth-context/auth-context";
+import { toast } from "react-toastify";
 
 const PostAddNew = () => {
-  const { control, handleSubmit, watch, setValue, getValues } = useForm({
+  const { control, handleSubmit, watch, setValue, getValues, reset } = useForm({
     mode: "onChange",
     defaultValues: {
       title: "",
       slug: "",
-      category: "",
+      categoryId: "",
       status: 2,
       hot: false,
+      image_name: "",
+      image: "",
     },
   });
   const watchStatus = watch("status");
   const watchHot = watch("hot");
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState({});
   const { progress, image, handleSelectImage, handleDeleteImage } =
     useFirebaseImage(setValue, getValues);
+  const { userInfo } = useAuth();
   const handleAddPost = async (values) => {
-    values.slug = slugify(values.slug || values.title);
+    values.slug = slugify(values.slug || values.title, { lower: true });
     // handleUpdloadImage(values.image);
     console.log("values form => ", values);
+    const colRef = collection(db, "posts");
+    await addDoc(colRef, {
+      categoryId: values.categoryId,
+      title: values.title,
+      slug: values.slug,
+      status: values.status,
+      image,
+      image_name: values.image_name,
+      userId: userInfo.uid,
+    });
+    reset({
+      title: "",
+      slug: "",
+      categoryId: "",
+      status: 2,
+      hot: false,
+      image_name: "",
+      image: "",
+    });
+    setSelectedCategory({});
+    toast.success("Add new post successfully");
   };
+  console.log(userInfo);
+  useEffect(() => {
+    async function getData() {
+      const colRef = collection(db, "categories");
+      const q = query(colRef, where("status", "==", 1));
+      const querySnapshot = await getDocs(q);
+      let result = [];
+      querySnapshot.forEach((doc) => {
+        result.push({ id: doc.id, ...doc.data() });
+      });
+      console.log(result);
+      setCategories(result);
+    }
+    getData();
+  }, []);
+  const handleClickOptionCategory = (category) => {
+    setValue("categoryId", category.id);
+    setSelectedCategory(category);
+  };
+
   return (
     <div>
       <h1 className="text-3xl font-semibold text-primary dashboard-heading">
@@ -80,12 +131,22 @@ const PostAddNew = () => {
           </Field>
           <Field>
             <Label>Category</Label>
-            {/* <select className="block w-full mt-1 border border-gray-300 rounded-lg shadow-sm focus:border-primary focus:ring-primary">
-              <option value="">Select category</option>
-              <option value="category1">Category 1</option>
-              <option value="category2">Category 2</option>
-            </select> */}
-            <Dropdown></Dropdown>
+            <Dropdown>
+              <Select
+                placeholder={`${selectedCategory.name || "Select category"}`}
+              ></Select>
+              <List>
+                {categories.length > 0 &&
+                  categories.map((category) => (
+                    <Option
+                      onClick={() => handleClickOptionCategory(category)}
+                      key={category.id}
+                    >
+                      {category.name}
+                    </Option>
+                  ))}
+              </List>
+            </Dropdown>
           </Field>
         </div>
 

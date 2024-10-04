@@ -2,6 +2,7 @@ import { useDropdown } from "../dropdown-context";
 
 const List = ({ children }) => {
   const { show } = useDropdown();
+  console.log("List => ", show);
   return (
     <>
       {show && (
