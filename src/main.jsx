@@ -16,6 +16,7 @@ import LayoutDashboard from "./components/layout-dashboard/index.jsx";
 import PostManage from "./components/post-manage/index.jsx";
 import PostAddNew from "./components/form/addnew-form/index.jsx";
 import PostDetailsPage from "./pages/post-datails/index.jsx";
+import CategoryAddNew from "./components/form/addnew-category-form/index.jsx";
 
 const router = createBrowserRouter([
   {
@@ -49,16 +50,20 @@ const router = createBrowserRouter([
     element: <LayoutDashboard />,
     children: [
       {
-        index: true, // Chỉ định trang mặc định của "/dashboard"
+        index: true,
         element: <DashboardPage />,
       },
       {
-        path: "manage/post", // Chỉ định trang mặc định của "/dashboard"
+        path: "manage/add-post",
+        element: <PostAddNew />,
+      },
+      {
+        path: "manage/post",
         element: <PostManage />,
       },
       {
-        path: "manage/add-post", // Chỉ định trang mặc định của "/dashboard"
-        element: <PostAddNew />,
+        path: "manage/add-category",
+        element: <CategoryAddNew />,
       },
     ],
   },
