@@ -13,7 +13,14 @@ import useFirebaseImage from "../../../hooks/useFirebaseImage";
 import Toggle from "../../toggle";
 import { useEffect, useState } from "react";
 import { db } from "./../../../firebase/firebase-config";
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  query,
+  serverTimestamp,
+  where,
+} from "firebase/firestore";
 import Option from "../../dropdown/option";
 import Select from "../../dropdown/select";
 import List from "../../dropdown/lish";
@@ -34,40 +41,48 @@ const PostAddNew = () => {
     },
   });
   const watchStatus = watch("status");
-  const watchHot = watch("hot");
+  const watchHot = watch("hot", false);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState({});
-  const { progress, image, handleSelectImage, handleDeleteImage } =
+  const [loading, setLoading] = useState(false);
+  const { progress, image, handleSelectImage, handleDeleteImage, resetImage } =
     useFirebaseImage(setValue, getValues);
   const { userInfo } = useAuth();
   const handleAddPost = async (values) => {
-    values.slug = slugify(values.slug || values.title, { lower: true });
-    // handleUpdloadImage(values.image);
-    console.log("values form => ", values);
-    const colRef = collection(db, "posts");
-    await addDoc(colRef, {
-      categoryId: values.categoryId,
-      title: values.title,
-      slug: values.slug,
-      status: values.status,
-      image,
-      image_name: values.image_name,
-      userId: userInfo.uid,
-    });
-    reset({
-      title: "",
-      slug: "",
-      categoryId: "",
-      status: 2,
-      hot: false,
-      image_name: "",
-      image: "",
-    });
-    setSelectedCategory({});
-    toast.success("Add new post successfully");
+    setLoading(true);
+    try {
+      const cloneValues = { ...values };
+      cloneValues.slug = slugify(values.slug || values.title, { lower: true });
+      cloneValues.status = Number(cloneValues.status);
+      console.log("values form => ", values);
+      const colRef = collection(db, "posts");
+      await addDoc(colRef, {
+        ...cloneValues,
+        image,
+        userId: userInfo.uid,
+        createdAt: serverTimestamp(),
+      });
+      reset({
+        title: "",
+        slug: "",
+        categoryId: "",
+        status: 2,
+        hot: false,
+        image_name: "",
+      });
+      setSelectedCategory({});
+      resetImage();
+      toast.success("Add new post successfully");
+    } catch (error) {
+      setLoading(false);
+      console.log("error", error);
+    } finally {
+      setLoading(false);
+    }
   };
   console.log(userInfo);
   useEffect(() => {
+    document.title = "Wukong blogging - Add new post";
     async function getData() {
       const colRef = collection(db, "categories");
       const q = query(colRef, where("status", "==", 1));
@@ -88,7 +103,7 @@ const PostAddNew = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-semibold text-primary dashboard-heading">
+      <h1 className="text-3xl font-semibold text-primary dashboard-heading mb-5">
         Add new post
       </h1>
       <form onSubmit={handleSubmit(handleAddPost)}>
@@ -189,7 +204,12 @@ const PostAddNew = () => {
             </FieldCheckboxes>
           </Field>
         </div>
-        <Button type="submit" className="mx-auto">
+        <Button
+          type="submit"
+          className="mx-auto"
+          isLoading={loading}
+          disable={loading}
+        >
           Add new post
         </Button>
       </form>

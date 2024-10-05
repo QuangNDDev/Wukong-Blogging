@@ -15,6 +15,7 @@ import DashboardPage from "./pages/dashboard/index.jsx";
 import LayoutDashboard from "./components/layout-dashboard/index.jsx";
 import PostManage from "./components/post-manage/index.jsx";
 import PostAddNew from "./components/form/addnew-form/index.jsx";
+import PostDetailsPage from "./pages/post-datails/index.jsx";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
+      },
+      {
+        path: "/:slug",
+        element: <PostDetailsPage />,
       },
     ],
   },

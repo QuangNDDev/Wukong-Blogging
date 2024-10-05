@@ -52,6 +52,11 @@ export default function useFirebaseImage(setValue, getValues) {
     handleUpdloadImage(file);
   };
 
+  const resetImage = () => {
+    setImage(""); // Reset hình ảnh
+    setProgress(0); // Reset progress
+  };
+
   const handleDeleteImage = () => {
     const storage = getStorage();
     const imageRef = ref(storage, "images/" + getValues("image_name"));
@@ -73,5 +78,6 @@ export default function useFirebaseImage(setValue, getValues) {
     handleUpdloadImage,
     handleSelectImage,
     handleDeleteImage,
+    resetImage,
   };
 }
