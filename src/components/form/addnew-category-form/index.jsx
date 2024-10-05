@@ -1,7 +1,13 @@
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import slugify from "slugify";
+import { db } from "../../../firebase/firebase-config";
+import { categoryStatus } from "../../../utils/constants";
 import Button from "../../button";
 import DashboardHeading from "../../dashboard/dashboard-heading";
 import Field from "../../field";
+import FieldCheckboxes from "../../field-checkbox";
 import Input from "../../input";
 import Label from "../../label";
 import Radio from "../../radio-button";
@@ -10,21 +16,48 @@ function CategoryAddNew() {
   const {
     handleSubmit,
     control,
-    // setValue,
-    // formState: { errors, isSubmitting, isValid },
+    watch,
+    reset,
+    formState: { isSubmitting, isValid },
   } = useForm({
     defaultValues: {
-      title: "",
+      name: "",
       slug: "",
       status: 2,
-      createAt: new Date(),
     },
     mode: "onChange",
   });
 
-  const handleAddNewCategory = (values) => {
-    console.log(values);
+  const watchStatusCategory = watch("status", 2);
+
+  const handleAddNewCategory = async (values) => {
+    if (!isValid) return null;
+    const cloneValues = { ...values };
+    cloneValues.slug = slugify(cloneValues.name || cloneValues.slug, {
+      lower: true,
+    });
+    cloneValues.status = Number(cloneValues.status);
+
+    const colRef = collection(db, "categories");
+    try {
+      await addDoc(colRef, {
+        ...cloneValues,
+        createdAt: serverTimestamp(),
+      });
+
+      toast.success("Create new category successfully!");
+    } catch (error) {
+      toast.error(error.message);
+      console.log("error", error);
+    } finally {
+      reset({
+        name: "",
+        slug: "",
+        status: 2,
+      });
+    }
   };
+
   return (
     <div>
       <DashboardHeading
@@ -53,17 +86,37 @@ function CategoryAddNew() {
         <div className="form-layout">
           <Field>
             <Label>Status</Label>
-            <div className="flex flex-wrap gap-x-5">
-              <Radio name="status" control={control} checked={true}>
+            <FieldCheckboxes>
+              <Radio
+                name="status"
+                control={control}
+                checked={
+                  Number(watchStatusCategory) === categoryStatus.APPROVED
+                }
+                value={categoryStatus.APPROVED}
+              >
                 Approved
               </Radio>
-              <Radio name="status" control={control}>
+              <Radio
+                name="status"
+                control={control}
+                checked={
+                  Number(watchStatusCategory) === categoryStatus.UNAPPROVED
+                }
+                value={categoryStatus.UNAPPROVED}
+              >
                 Unapproved
               </Radio>
-            </div>
+            </FieldCheckboxes>
           </Field>
         </div>
-        <Button kind="primary" className="mx-auto">
+        <Button
+          kind="primary"
+          className="mx-auto"
+          type="submit"
+          isLoading={isSubmitting}
+          disable={isSubmitting}
+        >
           Add new category
         </Button>
       </form>

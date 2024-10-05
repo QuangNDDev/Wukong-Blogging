@@ -1,5 +1,5 @@
-import Pagination from "../pagenation";
-import Table from "../table";
+import Pagination from "../../pagenation";
+import Table from "../../table";
 
 const PostManage = () => {
   return (

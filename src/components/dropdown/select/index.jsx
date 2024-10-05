@@ -6,7 +6,7 @@ const Select = ({ placeholder = "", className = "" }) => {
 
   return (
     <div
-      className={`flex items-center justify-between py-4 px-5 bg-grayLight border border-grayf1 rounded-lg cursor-pointer text-base text-placeHolderColor ${className}`}
+      className={`flex items-center justify-between py-4 px-5 bg-grayLight border border-grayf1 rounded-lg cursor-pointer text-base font-medium text-placeHolderColor ${className}`}
       onClick={toggle}
     >
       <span>{placeholder}</span>

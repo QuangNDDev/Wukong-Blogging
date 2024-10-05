@@ -40,7 +40,7 @@ const PostAddNew = () => {
       image: "",
     },
   });
-  const watchStatus = watch("status");
+  const watchStatus = watch("status", 2);
   const watchHot = watch("hot", false);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState({});
@@ -149,6 +149,9 @@ const PostAddNew = () => {
             <Dropdown>
               <Select
                 placeholder={`${selectedCategory.name || "Select category"}`}
+                className={
+                  selectedCategory?.name ? "text-black font-medium" : ""
+                }
               ></Select>
               <List>
                 {categories.length > 0 &&
