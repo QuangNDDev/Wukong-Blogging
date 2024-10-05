@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { addDoc, collection } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ import InputPassword from "../../components/input-toggle-password";
 import Label from "../../components/label";
 import { auth, db } from "../../firebase/firebase-config";
 import AuthenLayout from "../authen-layout";
+import slugify from "slugify";
 
 function SignUpPage() {
   const navigate = useNavigate();
@@ -52,11 +53,17 @@ function SignUpPage() {
 
       reset({ fullName: "", email: "", password: "" });
 
-      const userRef = collection(db, "users");
-      await addDoc(userRef, {
+      // const userRef = collection(db, "users");
+      await setDoc(doc(db, "users", auth.currentUser.uid), {
         fullName: values.fullName,
+        username: slugify(values.username, { lower: true }),
         email: values.email,
-      });
+      }); // cách này dùng dể set cái id của user giống với cái mà uid của firebase tạo ra
+
+      // await addDoc(userRef, {
+      //   fullName: values.fullName,
+      //   email: values.email,
+      // });
       toast.success(<p className="text-base">Register successfully!</p>);
       navigate("/");
     } catch (error) {
