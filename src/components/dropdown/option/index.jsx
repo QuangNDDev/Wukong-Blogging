@@ -8,7 +8,7 @@ const Option = ({ onClick, children }) => {
   };
   return (
     <div
-      className="px-5 py-4 cursor-pointer flex items-center justify-between hover:bg-gray-100"
+      className="px-5 py-4 cursor-pointer flex items-center justify-between border border-b border-gray-100 rounded hover:bg-gray-100"
       onClick={handleClick}
     >
       {children}
