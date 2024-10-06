@@ -3,7 +3,7 @@ import Button from "../../button";
 const DashboardHeader = () => {
   return (
     <div className="flex justify-end gap-5 p-5 bg-white border-b border-gray-200">
-      <Button to="manage/add-post" className="h-[52px]">
+      <Button to="manage/add-post" height="60px">
         Write new post
       </Button>
       <div className="w-[64px] h-[64px]">
