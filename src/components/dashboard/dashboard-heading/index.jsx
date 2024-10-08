@@ -5,7 +5,7 @@ const DashboardHeading = ({ title = "", desc = "", children }) => {
         <h1 className="text-3xl font-semibold text-primary dashboard-heading">
           {title}
         </h1>
-        <p className="dashboard-short-desc">{desc}</p>
+        <p className="dashboard-short-desc text-gray-400">{desc}</p>
       </div>
       {children}
     </div>

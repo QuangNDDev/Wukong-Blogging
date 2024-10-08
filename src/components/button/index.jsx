@@ -23,7 +23,7 @@ function Button({
       kindClass = "text-primary bg-white";
       break;
     case "ghost":
-      kindClass = "text-primary bg-opacity-10 bg-primary";
+      kindClass = "text-green-500 bg-green-100";
       break;
     case "signup-header":
       kindClass = "max-w-[200px] ml-[20px] text-white";

@@ -5,12 +5,16 @@ import Button from "../../button";
 import DashboardHeading from "../../dashboard/dashboard-heading";
 import LabelStatus from "../../label-status";
 import Table from "../../table";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../../firebase/firebase-config";
 import { categoryStatus } from "../../../utils/constants";
+import ActionDelete from "../../action/action-delete";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const ManageCategory = () => {
   const [categoryList, setCategoryList] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     // get all document tu firestore
     const colRel = collection(db, "categories");
@@ -25,11 +29,40 @@ const ManageCategory = () => {
       setCategoryList(result);
     });
   }, []);
-  console.log(categoryList);
+  const handleDelete = async (docId) => {
+    const colRef = doc(db, "categories", docId);
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await deleteDoc(colRef);
+        Swal.fire({
+          title: "Deleted!",
+          text: "This category has been deleted.",
+          icon: "success",
+        });
+      }
+    });
+    console.log(doc);
+  };
+
   return (
     <div>
       <DashboardHeading title="Categories" desc="Manage your category">
-        <Button height="60px" type="button" to="/dashboard/manage/add-category">
+        <Button
+          height="60px"
+          type="button"
+          to="/dashboard/manage/add-category"
+          kind="ghost"
+          hasGradient={false}
+        >
           Create category
         </Button>
       </DashboardHeading>
@@ -55,9 +88,9 @@ const ManageCategory = () => {
                   </span>
                 </td>
                 <td className="py-4 align-middle px-7">
-                  {status === categoryStatus.APPROVED ? (
+                  {Number(status) === categoryStatus.APPROVED ? (
                     <LabelStatus type="success">Approved</LabelStatus>
-                  ) : status === categoryStatus.UNAPPROVED ? (
+                  ) : Number(status) === categoryStatus.UNAPPROVED ? (
                     <LabelStatus type="danger">Unapproved</LabelStatus>
                   ) : (
                     ""
@@ -66,23 +99,12 @@ const ManageCategory = () => {
                 <td className="py-4 align-middle px-7">
                   <div className="flex items-center text-gray-500 gap-x-3">
                     <ActionView />
-                    <ActionEdit />
-                    <span className="flex items-center justify-center w-10 h-10 border border-gray-200 rounded cursor-pointer">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="w-5 h-5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                        />
-                      </svg>
-                    </span>
+                    <ActionEdit
+                      onClick={() =>
+                        navigate(`/dashboard/manage/update-category?id=${id}`)
+                      }
+                    />
+                    <ActionDelete onClick={() => handleDelete(id)} />
                   </div>
                 </td>
               </tr>

@@ -101,3 +101,6 @@
   box-shadow: 0 0 0 2.5px white,
     0 0 0 5px rgb(59 130 246 / var(--tw-bg-opacity));
 }
+.form-layout {
+  @apply grid grid-cols-1 lg:grid-cols-2 lg:gap-x-10 mb-5 lg:mb-10;
+}

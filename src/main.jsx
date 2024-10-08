@@ -18,6 +18,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AuthContextProvider } from "./contexts/auth-context/auth-context.jsx";
 import "react-toastify/dist/ReactToastify.css";
 import "./index.scss";
+import CategoryUpdate from "./components/form/update-category-form/index.jsx";
 
 const router = createBrowserRouter([
   {
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
       {
         path: "manage/add-category",
         element: <CategoryAddNew />,
+      },
+      {
+        path: "manage/update-category",
+        element: <CategoryUpdate />,
       },
     ],
   },
