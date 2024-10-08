@@ -11,7 +11,7 @@ function Input({ type = "text", name, placeholder, control, children }) {
   return (
     <div className="relative w-full">
       <input
-        className={`w-full text-[16px] p-5 border border-gray-300 rounded-lg outline-none transition-all duration-200 font-medium bg-grayLight placeholder-placeHolderColor focus:outline-none focus:ring-2 focus:bg-white focus:border-borderColor ${
+        className={`w-full text-[16px] p-5 rounded-lg outline-none transition-all duration-200 font-medium bg-grayLight placeholder-placeHolderColor focus:outline-none focus:ring-2 focus:bg-white focus:border-borderColor ${
           children ? "pr-16" : ""
         }`}
         type={type}

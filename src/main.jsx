@@ -19,6 +19,8 @@ import { AuthContextProvider } from "./contexts/auth-context/auth-context.jsx";
 import "react-toastify/dist/ReactToastify.css";
 import "./index.scss";
 import CategoryUpdate from "./components/form/update-category-form/index.jsx";
+import ManageUsers from "./components/post-manage/users/index.jsx";
+import UpdateUser from "./components/form/update-user/index.jsx";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +56,14 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <DashboardPage />,
+      },
+      {
+        path: "manage/user",
+        element: <ManageUsers />,
+      },
+      {
+        path: "manage/update-user",
+        element: <UpdateUser />,
       },
       {
         path: "manage/post",
