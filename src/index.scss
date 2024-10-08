@@ -1,3 +1,4 @@
+@import "_reset.scss";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -12,7 +13,6 @@
   margin: 0;
   padding: 0;
 }
-@import "_reset.scss";
 .container {
   width: 100%;
   max-width: 1180px;
